@@ -7,10 +7,6 @@ api_token = "PUT_YOUR_TOKEN_HERE"
 
 #Add new code below here
 
-#Function to retrieve the hosts and interfaces
-
-
-
 
 
 #Add new code above here
