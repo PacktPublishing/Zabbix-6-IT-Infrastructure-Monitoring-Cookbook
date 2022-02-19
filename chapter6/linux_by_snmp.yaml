@@ -1,6 +1,6 @@
 zabbix_export:
   version: '6.0'
-  date: '2022-02-12T16:43:16Z'
+  date: '2022-02-19T13:38:55Z'
   groups:
     -
       uuid: 846977d1dfed4968bc5f8bdb363285bc
@@ -8,26 +8,15 @@ zabbix_export:
   templates:
     -
       uuid: 797488e3354a4f86ac0e78bd052c9f8c
-      template: 'Linux by SNMP'
-      name: 'Linux by SNMP'
+      template: 'Custom Linux by SNMP'
+      name: 'Custom Linux by SNMP'
       templates:
         -
-          name: 'Linux uptime by SNMP'
+          name: 'Custom Linux uptime by SNMP'
       groups:
         -
           name: 'Templates/Operating systems'
       items:
-        -
-          uuid: da7f38c21245476d9cfaf518fc2a0ebc
-          name: 'Incoming ICMP messages'
-          type: SNMP_AGENT
-          snmp_oid: .1.3.6.1.2.1.5.1.0
-          key: icmp.In.Msgs
-          delay: 10s
-          tags:
-            -
-              tag: Application
-              value: ICMP
         -
           uuid: a373886fd1df49a49a83903625612db4
           name: 'System hostname'
@@ -39,24 +28,39 @@ zabbix_export:
           value_type: CHAR
           tags:
             -
-              tag: Application
-              value: General
+              tag: component
+              value: system
           triggers:
             -
               uuid: 75f856f46d89458695aee01666df726d
-              expression: 'find(/Linux by SNMP/sysName,,,"{$HOSTPREFIX}")=0'
+              expression: 'find(/Custom Linux by SNMP/sysName,,,"{$HOSTPREFIX}")=0'
               name: 'Hostname does not contain prefix'
               priority: INFO
+              manual_close: 'YES'
+              tags:
+                -
+                  tag: scope
+                  value: notification
             -
               uuid: e35d8b3fbde249a0995c8bbd99db87e2
-              expression: 'find(/Linux by SNMP/sysName,,,"{HOST.HOST}")=0'
+              expression: 'find(/Custom Linux by SNMP/sysName,,,"{HOST.HOST}")=0'
               name: 'Hostname does not match Zabbix hostname'
               priority: INFO
+              manual_close: 'YES'
+              tags:
+                -
+                  tag: scope
+                  value: notification
             -
               uuid: 0c6ca38fedeb4b48a0f93a2db43db5ef
-              expression: 'change(/Linux by SNMP/sysName)=1'
+              expression: 'change(/Custom Linux by SNMP/sysName)=1'
               name: 'Hostname has changed'
               priority: INFO
+              manual_close: 'YES'
+              tags:
+                -
+                  tag: scope
+                  value: notification
       discovery_rules:
         -
           uuid: 68a3d31e85af4effa69d223e0ba99577
@@ -73,93 +77,49 @@ zabbix_export:
             Discovery of Network interfaces on linux host systems
           item_prototypes:
             -
-              uuid: 3e2567f80bd848b788d85864ce1d2c58
-              name: 'Interface {#IFNAME}: Incoming Bits'
-              type: SNMP_AGENT
-              snmp_oid: '.1.3.6.1.2.1.2.2.1.10.{#SNMPINDEX}'
-              key: 'discover.if.In.Octets.[{#SNMPINDEX}]'
-              units: bps
-              preprocessing:
-                -
-                  type: CHANGE_PER_SECOND
-                  parameters:
-                    - ''
-                -
-                  type: MULTIPLIER
-                  parameters:
-                    - '8'
-              tags:
-                -
-                  tag: Application
-                  value: 'Interface {#IFNAME}'
-            -
-              uuid: 87072f0bb6f24d379ee4e0107edbe725
-              name: 'Interface {#IFNAME}: Outgoing Bits'
-              type: SNMP_AGENT
-              snmp_oid: '.1.3.6.1.2.1.2.2.1.16.{#SNMPINDEX}'
-              key: 'discover.if.Out.Octets.[{#SNMPINDEX}]'
-              units: bps
-              preprocessing:
-                -
-                  type: CHANGE_PER_SECOND
-                  parameters:
-                    - ''
-                -
-                  type: MULTIPLIER
-                  parameters:
-                    - '8'
-              tags:
-                -
-                  tag: Application
-                  value: 'Interface {#IFNAME}'
-            -
               uuid: 4fe41ddf2c9243a98e9775cbeba6a547
               name: 'Interface {#IFNAME}: Admin status'
               type: SNMP_AGENT
               snmp_oid: '.1.3.6.1.2.1.2.2.1.7.{#SNMPINDEX}'
-              key: 'net.if.Admin.Status.[{#SNMPINDEX}]'
+              key: 'ifAdminStatus.[{#SNMPINDEX}]'
               valuemap:
                 name: 'IF-MIB:ifOperStatus'
               tags:
                 -
-                  tag: Application
-                  value: 'Interface {#IFNAME}'
+                  tag: interface
+                  value: '{#IFNAME}'
             -
               uuid: fe9ee1c0e52f494ba37343f4c921c25d
               name: 'Interface {#IFNAME}: Operational status'
               type: SNMP_AGENT
               snmp_oid: '.1.3.6.1.2.1.2.2.1.8.{#SNMPINDEX}'
-              key: 'net.if.Oper.Status.[{#SNMPINDEX}]'
+              key: 'ifOperStatus.[{#SNMPINDEX}]'
               valuemap:
                 name: 'IF-MIB:ifOperStatus'
               tags:
                 -
-                  tag: Application
-                  value: 'Interface {#IFNAME}'
+                  tag: interface
+                  value: '{#IFNAME}'
           trigger_prototypes:
             -
               uuid: 4f644548d4c34a2692cc0ab9f443d3b3
               expression: |
-                last(/Linux by SNMP/net.if.Oper.Status.[{#SNMPINDEX}])=0
+                last(/Custom Linux by SNMP/ifOperStatus.[{#SNMPINDEX}])=0
                 and
-                last(/Linux by SNMP/net.if.Admin.Status.[{#SNMPINDEX}])=1
+                last(/Custom Linux by SNMP/ifAdminStatus.[{#SNMPINDEX}])=1
               name: 'Interface {#IFNAME}: Link is down'
               priority: WARNING
-          graph_prototypes:
-            -
-              uuid: 6f83cd25ad8d4037925a7de065d859fd
-              name: 'Interface {#IFNAME}: Incoming Bits'
-              graph_items:
+              tags:
                 -
-                  sortorder: '1'
-                  color: 1A7C11
-                  item:
-                    host: 'Linux by SNMP'
-                    key: 'discover.if.In.Octets.[{#SNMPINDEX}]'
+                  tag: scope
+                  value: availability
       tags:
         -
-          tag: OS
-          value: Linux
+          tag: class
+          value: os
+        -
+          tag: target
+          value: linux
       valuemaps:
         -
           uuid: e68392ce44a84fdf8a05b11dc82f58ad
@@ -186,14 +146,3 @@ zabbix_export:
             -
               value: '7'
               newvalue: lowerLayerDown
-  graphs:
-    -
-      uuid: 1680a913b83446bdba92eb0a6b0242c8
-      name: 'Total ICMP messages received'
-      graph_items:
-        -
-          sortorder: '1'
-          color: 1A7C11
-          item:
-            host: 'Linux by SNMP'
-            key: icmp.In.Msgs
