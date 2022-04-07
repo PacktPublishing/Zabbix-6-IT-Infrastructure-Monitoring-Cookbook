@@ -55,7 +55,7 @@ We also provide a PDF file that has color images of the screenshots/diagrams use
 
 * Learn Azure Administration [[Packt]](https://www.packtpub.com/product/learn-azure-administration/9781838551452?utm_source=github&utm_medium=repository&utm_campaign=9781838551452) [[Amazon]](https://www.amazon.com/dp/183855145X)
 
-## Get to Know the Author
+## Get to Know the Authors
 **Nathan Liefting**
 also known as Larcorba, is an IT consultant, trainer, and content creator (artist). He has more than 6 years of professional experience in IT. His experience ranges from managing networks running EVPN/VXLAN to Linux environments and programming. Nathan started working with Zabbix in 2016, when it was still at Zabbix 2 and Zabbix 3 was just released.He now works for Opensource ICT Solutions BV in the Netherlands as a Zabbix trainer and consultant, designing and building professional Zabbix environments and Zabbix components for some of the biggest companies around the world.
 
