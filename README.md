@@ -1,7 +1,3 @@
-## [Get this title for $10 on Packt's Spring Sale](https://www.packt.com/B18275?utm_source=github&utm_medium=packt-github-repo&utm_campaign=spring_10_dollar_2022)
------
-For a limited period, all eBooks and Videos are only $10. All the practical content you need \- by developers, for developers
-
 # Zabbix 6 IT Infrastructure Monitoring Cookbook
 
 <a href="https://www.packtpub.com/product/zabbix-6-it-infrastructure-monitoring-cookbook/9781803246918?utm_source=github&utm_medium=repository&utm_campaign=9781803246918"><img src="https://static.packt-cdn.com/products/9781803246918/cover/smaller" alt="Zabbix 6 IT Infrastructure Monitoring Cookbook" height="256px" align="right"></a>
