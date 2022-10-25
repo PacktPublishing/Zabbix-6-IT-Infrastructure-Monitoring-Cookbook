@@ -62,3 +62,7 @@ also known as Larcorba, is an IT consultant, trainer, and content creator (artis
 **Brian van Baekel**
 quickly discovered how powerful Zabbix is during his career as a network engineer. Ever since, he has been working with Zabbix in various (large) environments, leading to his official Zabbix Certified Trainer certification in early 2017.In 2018, Brian founded Opensource ICT Solutions BV in the Netherlands and Opensource ICT Solutions LLC in the USA. Both companies primarily focus on building Zabbix environments all over the world. Fun fact: even his cat is named "Zabbix".
 
+### Download a free PDF
+
+ <i>If you have already purchased a print or Kindle version of this book, you can get a DRM-free PDF version at no cost.<br>Simply click on the link to claim your free PDF.</i>
+<p align="center"> <a href="https://packt.link/free-ebook/9781803246918">https://packt.link/free-ebook/9781803246918 </a> </p>
